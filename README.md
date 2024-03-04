@@ -21,7 +21,7 @@ $ docker-compose exec app pnpm dlx storybook@latest init
 一旦コンテナからログアウトして下記を実行。
 
 ```
-$ docker cp node_app:/var/www/ ./myapp/
+$ docker cp nextjs_app:/var/www/ ./myapp/
 ```
 
 ### 4. 開発用コンテナを立ち上げ
