@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  app:
+    container_name: nextjs_app
+    build: ./docker/app
+    ports:
+      - 3000:3000
+      - 6006:6006
+    environment:
+      TZ: "Asia/Tokyo"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+
+  db:
+    container_name: nextjs_db
+    image: mysql:8.3
+    ports:
+      - 3306:3306
+    environment:
+      TZ: "Asia/Tokyo"
+      MYSQL_ROOT_PASSWORD: b2UcuTPQ
+      MYSQL_DATABASE: my_database
+      MYSQL_USER: my_db_user
+      MYSQL_PASSWORD: my_db_password
+    volumes:
+      - ./docker/db/data:/var/lib/mysql
+      - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./docker/db/sql:/docker-entrypoint-initdb.d
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
